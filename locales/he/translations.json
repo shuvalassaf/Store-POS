@@ -1,0 +1,60 @@
+{
+    "Login Username": "שם משתמש",
+    "Username": "שם משתמש",
+    "Password": "סיסמה",
+    "Remember me": "זכור אותי",
+    "Login": "התחבר",
+    "Logout": "התנתק",
+  
+    "Products": "מוצרים",
+    "Categories": "קטגוריות",
+    "Basic Stock Management": "ניהול מלאי בסיסי",
+    "Open Tabs (Orders)": "כרטיסיות פתוחות (הזמנות)",
+    "Customer Database": "מאגר לקוחות",
+    "Transaction History": "היסטוריית עסקאות",
+    "Reports": "דוחות",
+  
+    "Add": "הוסף",
+    "Edit": "ערוך",
+    "Delete": "מחק",
+    "Save": "שמור",
+    "Cancel": "בטל",
+  
+    "ID": "מספר זיהוי",
+    "Name": "שם",
+    "Price": "מחיר",
+    "Quantity": "כמות",
+    "Barcode": "ברקוד",
+    "Total": "סך הכל",
+  
+    "Till": "קופה",
+    "Cashier": "קופאי",
+    "Status": "סטטוס",
+    "Date Range": "טווח תאריכים",
+  
+    "Available stock": "מלאי זמין",
+  
+    "Enter name": "הכנס שם",
+    "Enter product name": "הכנס שם מוצר",
+    "Enter category name": "הכנס שם קטגוריה",
+    "Enter email address": "הכנס כתובת אימייל",
+    "Enter address": "הכנס כתובת",
+  
+    "Search order by customer name": "חפש הזמנה לפי שם הלקוח",
+    "Search order by reference": "חפש הזמנה לפי מספר",
+    "Search product by name or sku": "חפש מוצר לפי שם או קוד",
+    "Scan barcode or type the number then hit enter": "סרוק ברקוד או הקלד את המספר ואז לחץ אנטר",
+  
+    "Save Settings": "שמור הגדרות",
+    "Quit": "יציאה",
+    "Reload": "טען מחדש",
+    "DevTools": "כלי פיתוח",
+    "POS Server Online.": "שרת POS מחובר",
+  
+    "Product saved successfully": "המוצר נשמר בהצלחה",
+    "Product deleted successfully": "המוצר נמחק בהצלחה",
+    "Error saving product": "שגיאה בשמירת המוצר",
+    "Cannot reach server": "לא ניתן להגיע לשרת",
+    "Invalid username or password": "שם משתמש או סיסמה לא תקינים"
+  }
+  
