@@ -1,14 +1,28 @@
+import i18n from 'i18next';
+import { initReactI18next } from 'react-i18next';
+import en from './locales/en.json';
+
+i18n
+  .use(initReactI18next)
+  .init({
+    resources: { en: { translation: en } },
+    lng: 'en',
+    fallbackLng: 'en',
+    interpolation: { escapeValue: false },
+  });
 const setupEvents = require('./installers/setupEvents')
+
  if (setupEvents.handleSquirrelEvent()) {
     return;
  }
 
 const server = require('./server');
+const remoteMain=require('@electron/remote/main');
 const {app, BrowserWindow, ipcMain, screen} = require('electron');
 const path = require('path')
 
 const contextMenu = require('electron-context-menu');
-
+remoteMain.initialize();
 let mainWindow
 
 function createWindow() {
@@ -27,7 +41,7 @@ function createWindow() {
       contextIsolation: false
     },
   });
-
+  remoteMain.enable(mainWindow.webContents);
   mainWindow.maximize();
   mainWindow.show();
 
