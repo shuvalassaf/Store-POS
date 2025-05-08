@@ -28,7 +28,8 @@ app.get( "/customer/:customerId", function ( req, res ) {
         res.status( 500 ).send( "ID field is required." );
     } else {
         customerDB.findOne( {
-            _id: req.params.customerId
+            
+            _id: parseInt(req.params.customerId)
         }, function ( err, customer ) {
             res.send( customer );
         } );
@@ -55,7 +56,7 @@ app.post( "/customer", function ( req, res ) {
 
 app.delete( "/customer/:customerId", function ( req, res ) {
     customerDB.remove( {
-        _id: req.params.customerId
+        _id: parseInt(req.params.customerId)
     }, function ( err, numRemoved ) {
         if ( err ) res.status( 500 ).send( err );
         else res.sendStatus( 200 );
@@ -66,18 +67,21 @@ app.delete( "/customer/:customerId", function ( req, res ) {
 
  
 app.put( "/customer", function ( req, res ) {
-    let customerId = req.body._id;
+    let customerId = parseInt(req.body._id);
 
-    customerDB.update( {
-        _id: customerId
-    }, req.body, {}, function (
-        err,
-        numReplaced,
-        customer
-    ) {
-        if ( err ) res.status( 500 ).send( err );
-        else res.sendStatus( 200 );
-    } );
+    // Clone body and remove _id
+    const updateData = { ...req.body };
+    delete updateData._id;
+
+    customerDB.update(
+        { _id: customerId },
+        { $set: updateData },
+        {},
+        function (err, numReplaced) {
+            if (err) res.status(500).send(err);
+            else res.sendStatus(200);
+        }
+    );
 });
 
 
