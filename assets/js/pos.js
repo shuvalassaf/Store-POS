@@ -264,7 +264,7 @@ if (auth == undefined) {
 
             $.get(api + 'customers/all', function (customers) {
 
-                $('#customer').html(`<option value="0" selected="selected">Walk in customer</option>`);
+                $('#customer').html(`<option value="0" selected="selected">לקוח מזדמן</option>`);
 
                 customers.forEach(cust => {
 
@@ -289,8 +289,8 @@ if (auth == undefined) {
                 }
                 else {
                     Swal.fire(
-                        'Out of stock!',
-                        'This item is currently unavailable',
+                        'לא קיים במלאי!',
+                        'המוצר הנבחר אינו זמין',
                         'info'
                     );
                 }
@@ -335,16 +335,16 @@ if (auth == undefined) {
                     }
                     else if (data.quantity < 1) {
                         Swal.fire(
-                            'Out of stock!',
-                            'This item is currently unavailable',
+                            'לא קיים במלאי!',
+                            'המוצר הנבחר אינו קיים במלאי',
                             'info'
                         );
                     }
                     else {
 
                         Swal.fire(
-                            'Not Found!',
-                            '<b>' + $("#skuCode").val() + '</b> is not a valid barcode!',
+                            'פריט לא נמצא',
+                            '<b>' + $("#skuCode").val() + '</b>בר-קוד לא תקין',
                             'warning'
                         );
 
@@ -536,8 +536,8 @@ if (auth == undefined) {
 
                 else {
                     Swal.fire(
-                        'No more stock!',
-                        'You have already added all the available stock.',
+                        'לא קיים מלאי זמין',
+                        'כבר הוספת את כל המלאי הקייים להזמנה',
                         'info'
                     );
                 }
@@ -570,13 +570,14 @@ if (auth == undefined) {
 
             if (cart.length > 0) {
                 Swal.fire({
-                    title: 'Are you sure?',
-                    text: "You are about to remove all items from the cart.",
+                    title: 'האם אתה בטוח?',
+                    text: "אתה עומד למחוק את כל הפריטים בהזמנה",
                     icon: 'warning',
                     showCancelButton: true,
                     confirmButtonColor: '#3085d6',
                     cancelButtonColor: '#d33',
-                    confirmButtonText: 'Yes, clear it!'
+                    cancelButtonText: 'לא',
+                    confirmButtonText: 'כן מחק פריטים!'
                 }).then((result) => {
 
                     if (result.value) {
@@ -586,8 +587,8 @@ if (auth == undefined) {
                         holdOrder = 0;
 
                         Swal.fire(
-                            'Cleared!',
-                            'All items have been removed.',
+                            'נמחקו',
+                            'כל הפריטים נמחקו',
                             'success'
                         )
                     }
@@ -627,7 +628,7 @@ if (auth == undefined) {
 
 
         function printJobComplete() {
-            alert("print job complete");
+            alert("הדפסה נשלחה בהצלחה");
         }
 
 
@@ -657,13 +658,13 @@ if (auth == undefined) {
 
             switch (paymentType) {
 
-                case 1: type = "Cheque";
+                case 1: type = "שיק";
                     break;
 
-                case 2: type = "Card";
+                case 2: type = "אשראי";
                     break;
 
-                default: type = "Cash";
+                default: type = "מזומן";
 
             }
 
@@ -740,7 +741,7 @@ if (auth == undefined) {
             <p>
             Order No : ${orderNumber} <br>
             Ref No : ${refNumber == "" ? orderNumber : refNumber} <br>
-            Customer : ${customer == 0 ? 'Walk in customer' : customer.name} <br>
+            Customer : ${customer == 0 ? 'לקוח מזדמן' : customer.name} <br>
             Cashier : ${user.fullname} <br>
             Date : ${date}<br>
             </p>
@@ -856,7 +857,7 @@ if (auth == undefined) {
                 }, error: function (data) {
                     $(".loading").hide();
                     $("#dueModal").modal('toggle');
-                    swal("Something went wrong!", 'Please refresh this page and try again');
+                    swal("משהו השתבש !", 'אנא רענן את המסך ונסה שוב');
 
                 }
             });
@@ -904,7 +905,7 @@ if (auth == undefined) {
                                     $('<span>', { text: order.items.length }),
                                     $('<br>'),
                                     $('<b>', { text: 'Customer :' }),
-                                    $('<span>', { text: order.customer != 0 ? order.customer.name : 'Walk in customer', class: 'customer_name' })
+                                    $('<span>', { text: order.customer != 0 ? order.customer.name : 'לקוח מזדמן', class: 'customer_name' })
                                 ),
                                 $('<button>', { class: 'btn btn-danger del', onclick: '$(this).deleteOrder(' + index + ',' + orderType + ')' }).append(
                                     $('<i>', { class: 'fa fa-trash' })
@@ -945,7 +946,7 @@ if (auth == undefined) {
                 $("#customer option:selected").removeAttr('selected');
 
                 $("#customer option").filter(function () {
-                    return $(this).text() == "Walk in customer";
+                    return $(this).text() == "לקוח מזדמן";
                 }).prop("selected", true);
 
                 holdOrder = holdOrderList[index]._id;
@@ -1003,13 +1004,14 @@ if (auth == undefined) {
             }
 
             Swal.fire({
-                title: "Delete order?",
-                text: "This will delete the order. Are you sure you want to delete!",
+                title: "מחק הזמנה?",
+                text: "האם אתה בטוח שאתה מעוניין למחוק הזמנה",
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
                 cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes, delete it!'
+                cancelButtonText: 'לא',
+                confirmButtonText: 'כן, מחק הזמנה'
             }).then((result) => {
 
                 if (result.value) {
@@ -1026,8 +1028,8 @@ if (auth == undefined) {
                             $(this).getCustomerOrders();
 
                             Swal.fire(
-                                'Deleted!',
-                                'You have deleted the order!',
+                                'מחיקה!',
+                                'ההזמנה נמחקה בהצלחה',
                                 'success'
                             )
 
@@ -1054,41 +1056,55 @@ if (auth == undefined) {
 
 
         $('#saveCustomer').on('submit', function (e) {
-
             e.preventDefault();
-
-            let custData = {
-                _id: Math.floor(Date.now() / 1000),
-                name: $('#userName').val(),
-                phone: $('#phoneNumber').val(),
-                email: $('#emailAddress').val(),
-                address: $('#userAddress').val()
-            }
-
+          
+            const isEdit = !!$('#customerId').val(); // edit mode if _id exists
+          
+            const custData = {
+              _id: isEdit ? $('#customerId').val() : Math.floor(Date.now() / 1000),
+              name: $('#userName').val(),
+              phone: $('#phoneNumber').val(),
+              email: $('#emailAddress').val(),
+              address: $('#userAddress').val()
+            };
+          
             $.ajax({
-                url: api + 'customers/customer',
-                type: 'POST',
-                data: JSON.stringify(custData),
-                contentType: 'application/json; charset=utf-8',
-                cache: false,
-                processData: false,
-                success: function (data) {
-                    $("#newCustomer").modal('hide');
-                    Swal.fire("Customer added!", "Customer added successfully!", "success");
-                    $("#customer option:selected").removeAttr('selected');
-                    $('#customer').append(
-                        $('<option>', { text: custData.name, value: `{"id": ${custData._id}, "name": ${custData.name}}`, selected: 'selected' })
-                    );
-
-                    $('#customer').val(`{"id": ${custData._id}, "name": ${custData.name}}`).trigger('chosen:updated');
-
-                }, error: function (data) {
-                    $("#newCustomer").modal('hide');
-                    Swal.fire('Error', 'Something went wrong please try again', 'error')
+              url: api + 'customers/customer',
+              type: isEdit ? 'PUT' : 'POST',
+              data: JSON.stringify(custData),
+              contentType: 'application/json; charset=utf-8',
+              cache: false,
+              processData: false,
+              success: function () {
+                $('#newCustomer').modal('hide');
+          
+                if (isEdit) {
+                  Swal.fire('עדכון לקוח', 'פרטי הלקוח עודכנו בהצלחה', 'success');
+                } else {
+                  Swal.fire('הוספת לקוח', 'לקוח נוסף בהצלחה', 'success');
+          
+                  // Add new customer to select dropdown (POS flow)
+                  const optionVal = JSON.stringify({ id: custData._id, name: custData.name });
+                  $('#customer option:selected').removeAttr('selected');
+                  $('#customer').append(
+                    $('<option>', { text: custData.name, value: optionVal, selected: 'selected' })
+                  );
+                  $('#customer').val(optionVal).trigger('chosen:updated');
                 }
-            })
-        })
-
+          
+                // Refresh customer list table if modal came from #customerList
+                if ($('#customerList').is(':visible')) {
+                  $('#customerList').showCustomer();
+                }
+                loadCustomers();
+              },
+              error: function () {
+                $('#newCustomer').modal('hide');
+                Swal.fire('שגיאה', 'משהו השתבש, נסה שוב', 'error');
+              }
+            });
+          });
+          
 
         $("#confirmPayment").hide();
 
@@ -1168,14 +1184,14 @@ if (auth == undefined) {
 
                     loadProducts();
                     Swal.fire({
-                        title: 'Product Saved',
-                        text: "Select an option below to continue.",
+                        title: 'מוצר נשמר',
+                        text: "בחר באחת מן האפשרויות",
                         icon: 'success',
                         showCancelButton: true,
                         confirmButtonColor: '#3085d6',
                         cancelButtonColor: '#d33',
-                        confirmButtonText: 'Add another',
-                        cancelButtonText: 'Close'
+                        confirmButtonText: 'המשך להוסיף',
+                        cancelButtonText: 'סגור'
                     }).then((result) => {
 
                         if (!result.value) {
@@ -1210,14 +1226,14 @@ if (auth == undefined) {
                     loadCategories();
                     loadProducts();
                     Swal.fire({
-                        title: 'Category Saved',
-                        text: "Select an option below to continue.",
+                        title: 'קטגוריה נשמרה בהצלחה',
+                        text: "בחר מאחת האפשרויות",
                         icon: 'success',
                         showCancelButton: true,
                         confirmButtonColor: '#3085d6',
                         cancelButtonColor: '#d33',
-                        confirmButtonText: 'Add another',
-                        cancelButtonText: 'Close'
+                        confirmButtonText: 'הוסף אחר',
+                        cancelButtonText: 'סגור'
                     }).then((result) => {
 
                         if (!result.value) {
@@ -1331,13 +1347,14 @@ if (auth == undefined) {
 
         $.fn.deleteProduct = function (id) {
             Swal.fire({
-                title: 'Are you sure?',
-                text: "You are about to delete this product.",
+                title: 'האם אתה בטוח',
+                text: "אתה עומד למחוק מוצר זה",
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
                 cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes, delete it!'
+                cancelButtonText: 'לא',
+                confirmButtonText: 'כן, מחק מוצר'
             }).then((result) => {
 
                 if (result.value) {
@@ -1348,8 +1365,8 @@ if (auth == undefined) {
                         success: function (result) {
                             loadProducts();
                             Swal.fire(
-                                'Done!',
-                                'Product deleted',
+                                'בוצע!',
+                                'מוצר נמחק בהצלחה',
                                 'success'
                             );
 
@@ -1362,13 +1379,14 @@ if (auth == undefined) {
 
         $.fn.deleteUser = function (id) {
             Swal.fire({
-                title: 'Are you sure?',
-                text: "You are about to delete this user.",
+                title: 'האם אתה בטוח?',
+                text: "אתה עומד למחוק את המשתמש",
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
                 cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes, delete!'
+                cancelButtonText: 'לא',
+                confirmButtonText: 'כן, מחק משתמש'
             }).then((result) => {
 
                 if (result.value) {
@@ -1379,8 +1397,8 @@ if (auth == undefined) {
                         success: function (result) {
                             loadUserList();
                             Swal.fire(
-                                'Done!',
-                                'User deleted',
+                                'בוצע!',
+                                'משתמש נמחק בהצלחה',
                                 'success'
                             );
 
@@ -1393,13 +1411,14 @@ if (auth == undefined) {
 
         $.fn.deleteCategory = function (id) {
             Swal.fire({
-                title: 'Are you sure?',
-                text: "You are about to delete this category.",
+                title: 'האם אתה בטוח',
+                text: "אתה עומד למחוק קטגוריה",
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
                 cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes, delete it!'
+                cancelButtonText: 'לא',
+                confirmButtonText: 'כן, מחק קטגוריה'
             }).then((result) => {
 
                 if (result.value) {
@@ -1410,8 +1429,8 @@ if (auth == undefined) {
                         success: function (result) {
                             loadCategories();
                             Swal.fire(
-                                'Done!',
-                                'Category deleted',
+                                'בוצע!',
+                                'קטגוריה נמחקה בהצלחה',
                                 'success'
                             );
 
@@ -1597,13 +1616,14 @@ if (auth == undefined) {
         $('#log-out').click(function () {
 
             Swal.fire({
-                title: 'Are you sure?',
-                text: "You are about to log out.",
+                title: 'האם אתה בטוח',
+                text: "אתה מעוניין להתנתק מהמערכת",
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#d33',
                 cancelButtonColor: '#3085d6',
-                confirmButtonText: 'Logout'
+                cancelButtonText: 'ביטול',
+                confirmButtonText: 'יציאה'
             }).then((result) => {
 
                 if (result.value) {
@@ -1708,8 +1728,8 @@ if (auth == undefined) {
                 if (formData.password != atob(user.password)) {
                     if (formData.password != formData.pass) {
                         Swal.fire(
-                            'Oops!',
-                            'Passwords do not match!',
+                            'אווי!',
+                            'הסיסמאות שהוקשו אינם זהות',
                             'warning'
                         );
                     }
@@ -1719,8 +1739,8 @@ if (auth == undefined) {
                 if (formData.password != atob(allUsers[user_index].password)) {
                     if (formData.password != formData.pass) {
                         Swal.fire(
-                            'Oops!',
-                            'Passwords do not match!',
+                            'אווי',
+                            'הסיסמאות שהוקשו אינם זהות',
                             'warning'
                         );
                     }
@@ -1750,8 +1770,8 @@ if (auth == undefined) {
 
                             $('#Users').modal('show');
                             Swal.fire(
-                                'Ok!',
-                                'User details saved!',
+                                'בוצע',
+                                'פרטי המשתמש נשמרו בהצלחה',
                                 'success'
                             );
                         }
@@ -2135,7 +2155,7 @@ $.fn.viewTransaction = function (index) {
     transaction_index = index;
 
     let discount = allTransactions[index].discount;
-    let customer = allTransactions[index].customer == 0 ? 'Walk in Customer' : allTransactions[index].customer.username;
+    let customer = allTransactions[index].customer == 0 ? 'לקוח מזדמן' : allTransactions[index].customer.username;
     let refNumber = allTransactions[index].ref_number != "" ? allTransactions[index].ref_number : allTransactions[index].order;
     let orderNumber = allTransactions[index].order;
     let type = "";
@@ -2151,27 +2171,27 @@ $.fn.viewTransaction = function (index) {
 
     switch (allTransactions[index].payment_type) {
 
-        case 2: type = "Card";
+        case 2: type = "אשראי";
             break;
 
-        default: type = "Cash";
+        default: type = "מזומן";
 
     }
 
 
     if (allTransactions[index].paid != "") {
         payment = `<tr>
-                    <td>Paid</td>
+                    <td>שולם</td>
                     <td>:</td>
                     <td>${settings.symbol + allTransactions[index].paid}</td>
                 </tr>
                 <tr>
-                    <td>Change</td>
+                    <td>עודף</td>
                     <td>:</td>
                     <td>${settings.symbol + Math.abs(allTransactions[index].change).toFixed(2)}</td>
                 </tr>
                 <tr>
-                    <td>Method</td>
+                    <td>באמצעות</td>
                     <td>:</td>
                     <td>${type}</td>
                 </tr>`
@@ -2195,17 +2215,17 @@ $.fn.viewTransaction = function (index) {
             <span style="font-size: 22px;">${settings.store}</span> <br>
             ${settings.address_one} <br>
             ${settings.address_two} <br>
-            ${settings.contact != '' ? 'Tel: ' + settings.contact + '<br>' : ''} 
-            ${settings.tax != '' ? 'Vat No: ' + settings.tax + '<br>' : ''} 
+            ${settings.contact != '' ? 'טלפון: ' + settings.contact + '<br>' : ''} 
+            ${settings.tax != '' ? 'מעמ: ' + settings.tax + '<br>' : ''} 
     </p>
     <hr>
     <left>
         <p>
-        Invoice : ${orderNumber} <br>
-        Ref No : ${refNumber} <br>
-        Customer : ${allTransactions[index].customer == 0 ? 'Walk in Customer' : allTransactions[index].customer.name} <br>
-        Cashier : ${allTransactions[index].user} <br>
-        Date : ${moment(allTransactions[index].date).format('DD MMM YYYY HH:mm:ss')}<br>
+        מספר הזמנה : ${orderNumber} <br>
+        מספר קבלה : ${refNumber} <br>
+        לקוח : ${allTransactions[index].customer == 0 ? 'לקוח מזדמן' : allTransactions[index].customer.name} <br>
+        קופאי : ${allTransactions[index].user} <br>
+        תאריך : ${moment(allTransactions[index].date).format('DD MMM YYYY HH:mm:ss')}<br>
         </p>
 
     </left>
@@ -2213,21 +2233,21 @@ $.fn.viewTransaction = function (index) {
     <table width="100%">
         <thead style="text-align: left;">
         <tr>
-            <th>Item</th>
-            <th>Qty</th>
-            <th>Price</th>
+            <th>פריט</th>
+            <th>כמות</th>
+            <th>מחיר</th>
         </tr>
         </thead>
         <tbody>
         ${items}                
  
         <tr>                        
-            <td><b>Subtotal</b></td>
+            <td><b>סהכ</b></td>
             <td>:</td>
             <td><b>${settings.symbol}${allTransactions[index].subtotal}</b></td>
         </tr>
         <tr>
-            <td>Discount</td>
+            <td>הנחה</td>
             <td>:</td>
             <td>${discount > 0 ? settings.symbol + parseFloat(allTransactions[index].discount).toFixed(2) : ''}</td>
         </tr>
@@ -2235,7 +2255,7 @@ $.fn.viewTransaction = function (index) {
         ${tax_row}
     
         <tr>
-            <td><h3>Total</h3></td>
+            <td><h3>סהכ</h3></td>
             <td><h3>:</h3></td>
             <td>
                 <h3>${settings.symbol}${allTransactions[index].total}</h3>
@@ -2294,9 +2314,9 @@ $('#reportrange').on('apply.daterangepicker', function (ev, picker) {
 
 function authenticate() {
     $('#loading').append(
-        `<div id="load"><form id="account"><div class="form-group"><input type="text" placeholder="Username" name="username" class="form-control"></div>
-        <div class="form-group"><input type="password" placeholder="Password" name="password" class="form-control"></div>
-        <div class="form-group"><input type="submit" class="btn btn-block btn-default" value="Login"></div></form>`
+        `<div id="load"><form id="account"><div class="form-group"><input type="text" placeholder="שם משתמש" name="username" class="form-control"></div>
+        <div class="form-group"><input type="password" placeholder="סיסמה" name="password" class="form-control"></div>
+        <div class="form-group"><input type="submit" class="btn btn-block btn-default" value="כניסה"></div></form>`
     );
 }
 
@@ -2346,13 +2366,14 @@ $('body').on("submit", "#account", function (e) {
 
 $('#quit').click(function () {
     Swal.fire({
-        title: 'Are you sure?',
-        text: "You are about to close the application.",
+        title: '?האם אתה בטוח',
+        text: "פעולה זו תסגור את האפליקציה.",
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#d33',
         cancelButtonColor: '#3085d6',
-        confirmButtonText: 'Close Application'
+        cancelButtonText: 'ביטול',
+        confirmButtonText: 'יציאה'
     }).then((result) => {
 
         if (result.value) {
