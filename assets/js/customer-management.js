@@ -35,6 +35,7 @@
         const tbody = $('#customer_list').empty();
   
         customers.forEach(cust => {
+          if (cust._id==='') { return;}
           tbody.append(
             `<tr data-id="${cust._id}">
               <td>${cust._id}</td>
@@ -48,8 +49,8 @@
                 <button class="btn btn-sm btn-danger delete-customer">מחק</button>
               </td>
             </tr>`
-          );
-        });
+        )}
+        );
       }).fail(function() {
         $('#customerList .loading').hide();
         alert('Error loading customers.');
