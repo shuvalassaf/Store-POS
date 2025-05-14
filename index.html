@@ -623,13 +623,16 @@
                         <button class="btn btn-white pull-right" id="print_list">הורדה</button>
                     </h4>                        
                 </div>
-                 <div class="modal-body" id="all_products" style="padding: 20px; padding-right: 40px;"> 
+                 <div class="modal-body" id="all_customers" style="padding: 20px; padding-right: 40px;"> 
                     <div class="col-md-2">
                         <button id="openNewCustomerStandalone" class="btn btn-success">
                             <i class="fa fa-plus"></i>
                           </button>
                     </div>
-                    <table class="table table-bordered" id="productList">
+                    <div class="form-group">
+                        <input type="text" id="CustomerInput" class="form-control" placeholder="חפש לקוח לפי שם">
+                      </div>
+                    <table class="table table-bordered" id="customerList">
                         <thead>
                             <tr>                                                                      
                                 <th>מספר לקוח</th>

@@ -11,6 +11,24 @@
       loadCustomerTable();
       return this;
     };
+    function searchCustomer() {
+      var matcher = new RegExp($("#CustomerInput").val(), 'gi');
+      $('.customer').show().not(function(){
+          return matcher.test($(this).find('.customer_name').text())
+      }).hide();
+  }
+
+  var $searchCustomer = $("#CustomerInput").on('input',function () {
+      searchCustomer();
+  });
+
+
+  $('body').on('click', '.customerKeyboard .key', function() {
+      if($("#CustomerInput").is(":focus")) {
+          searchCustomer();
+      }          
+  });
+
     function loadCustomers() {
         $.get(api + 'customers/all', function (customers) {
           const $dropdown = $('#customer');
@@ -36,10 +54,10 @@
   
         customers.forEach(cust => {
           if (cust._id==='') { return;}
-          tbody.append(
-            `<tr data-id="${cust._id}">
+          tbody.append(`
+            <tr class="customer" data-id="${cust._id}">
               <td>${cust._id}</td>
-              <td>${cust.name}</td>
+              <td class="customer_name">${cust.name}</td>
               <td>${cust.phone || ''}</td>
               <td>${cust.email || ''}</td>
               <td>${cust.address || ''}</td>
